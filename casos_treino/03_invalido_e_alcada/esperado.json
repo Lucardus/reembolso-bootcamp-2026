@@ -1,0 +1,25 @@
+{
+  "categoria_documento": "MATERIAL_OPME",
+  "decisao": "ESCALADO_ANALISTA",
+  "valor_solicitado_brl": 9200.0,
+  "valor_reembolso_brl": null,
+  "regras_aplicadas": [
+    "ART-78"
+  ],
+  "protocolo": "<gerado-pelo-mcp>",
+  "pendencias": [],
+  "_titulo": "Conta de energia por engano e, depois, uma prótese acima da alçada",
+  "_dica": "Se o primeiro anexo virou pendência de campo ou despesa não coberta, reveja: são três situações distintas com tratamentos distintos. Se você calculou um valor para a prótese, reveja quem tem competência para decidir esse tipo de pedido — e o que se pode informar ao beneficiário antes da análise. E confira se o protocolo foi mesmo aberto.",
+  "_data_da_conversa": "2026-05-20",
+  "_perguntas_abertas": [
+    {
+      "turno": 4,
+      "espera": "o arquivo enviado não é documento fiscal de despesa assistencial, e por isso não serve; o protocolo continua aberto esperando o documento correto"
+    },
+    {
+      "turno": 7,
+      "espera": "pedidos dessa natureza não são decididos pela análise automatizada e vão para analista humano; por isso não se informa valor de reembolso antes da conclusão da análise"
+    }
+  ],
+  "_carteirinhas_de_terceiro": []
+}

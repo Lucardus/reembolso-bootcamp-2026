@@ -1,0 +1,7 @@
+{"turno": 1, "mensagem": "boa tarde, preciso pedir reembolso de uma cirurgia que eu fiz no joelho"}
+{"turno": 2, "mensagem": "7042 3304 7112 5508"}
+{"turno": 3, "mensagem": "mandei o arquivo", "anexo": {"filename": "conta_energia.pdf", "mime_type": "application/pdf", "path": "../../anexos/treino/conta_energia.pdf"}}
+{"turno": 4, "mensagem": "ué, não é? peguei o que tava salvo no celular. deixa eu procurar o certo"}
+{"turno": 5, "mensagem": "achei, é esse", "anexo": {"filename": "nota_protese_ortopedica.pdf", "mime_type": "application/pdf", "path": "../../anexos/treino/nota_protese_ortopedica.pdf"}}
+{"turno": 6, "mensagem": "foi caro mesmo, a prótese sozinha deu quase sete mil e meio. quanto volta?"}
+{"turno": 7, "mensagem": "por que você não consegue me dizer o valor agora? o sistema não calcula?"}

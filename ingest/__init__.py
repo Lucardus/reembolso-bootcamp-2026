@@ -1,0 +1,1 @@
+"""Construção do índice."""

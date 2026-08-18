@@ -1,0 +1,11 @@
+{
+  "carteirinha": "7042519908873310",
+  "nome": "Rodrigo Antunes Bicalho",
+  "cpf": "703.284.115-40",
+  "plano": "Essencial",
+  "data_adesao": "2022-03-01",
+  "sessoes_terapia_ano": 11,
+  "reembolsado_no_ano_brl": 4453.53,
+  "status": "ATIVO",
+  "observacao": "Dados fictícios. É o que o MCP de elegibilidade devolveria. O histórico traz as sessões anteriores deste ano e o quanto já foi reembolsado — é dele que saem a sessão atual e o saldo do ano."
+}

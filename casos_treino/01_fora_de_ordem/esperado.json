@@ -1,0 +1,32 @@
+{
+  "categoria_documento": "CONSULTA_MEDICA",
+  "decisao": "APROVADO",
+  "valor_solicitado_brl": 240.0,
+  "valor_reembolso_brl": 144.0,
+  "regras_aplicadas": [
+    "ART-35",
+    "ART-33",
+    "ART-43",
+    "ART-44",
+    "ART-47",
+    "TUSS-10101012"
+  ],
+  "protocolo": null,
+  "pendencias": [],
+  "_titulo": "Consulta em dermatologia — anexo antes do contexto, com guardrail no meio",
+  "_dica": "Três armadilhas aqui. Se você travou no turno 1, o grafo não aceita receber o anexo antes do contexto. Se respondeu sobre a segunda carteirinha, reveja o guardrail — e note que ele não pode encerrar o atendimento em curso. Se o valor não bateu, confira de onde sai a redução e se a decisão é mesmo parcial.",
+  "_data_da_conversa": "2026-05-20",
+  "_perguntas_abertas": [
+    {
+      "turno": 7,
+      "espera": "o valor não volta inteiro porque, depois de aplicado o teto do procedimento, incide a coparticipação, cujo percentual depende do plano e do tempo de adesão do beneficiário"
+    },
+    {
+      "turno": 8,
+      "espera": "a acupuntura é procedimento de fronteira: só é reembolsável com indicação clínica expressa; sem ela presume-se finalidade estética e não há cobertura"
+    }
+  ],
+  "_carteirinhas_de_terceiro": [
+    "7042519908873310"
+  ]
+}

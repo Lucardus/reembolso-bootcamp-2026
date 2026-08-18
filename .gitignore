@@ -1,0 +1,9 @@
+.env
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.DS_Store
+.venv_temp/
+*.pyc
+scratch_test_mcp.py

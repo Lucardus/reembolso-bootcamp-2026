@@ -1,0 +1,63 @@
+# ============================================================== leia isto
+# Este conjunto é SUGERIDO, não obrigatório.
+#
+# São as bibliotecas com que a prova foi montada e testada, nas versões que
+# resolvem juntas no Python 3.11 — a mesma do Dockerfile. Instalar isto e sair
+# codificando funciona: `python -m app.llm` responde de primeira.
+#
+# Você pode trocar, subir ou descer versão, e usar outras bibliotecas. Só três
+# coisas não são negociáveis, e elas estão no enunciado, não aqui:
+#
+#   1. as exigências de arquitetura do item 4 (orquestração com grafo,
+#      indexação com LlamaIndex, vector store embarcado, busca híbrida,
+#      saída em Pydantic);
+#   2. o contrato HTTP do item 6 — /health, /chat e /reset na porta 8000;
+#   3. o `docker build` tem de funcionar sem rede além do PyPI e em até
+#      10 minutos, e o índice já vem pronto em storage/.
+#
+# Se você mudar de versão, fixe a que usou. Build que resolve dependência na
+# hora quebra sozinho entre o seu teste e a correção.
+# ==========================================================================
+
+# ------------------------------------------------- API do container (item 6)
+# FastAPI é sugestão; qualquer framework que sirva as três rotas serve.
+# Pydantic, não: o item 4 exige saída estruturada com ele.
+fastapi==0.141.1
+uvicorn[standard]==0.52.1
+pydantic==2.13.4
+httpx==0.28.1
+
+# ------------------------------------------- modelo — Gemini (ver app/llm.py)
+# O acesso ao modelo já vem pronto em app/llm.py. Estas são as bibliotecas que
+# ele usa; se trocar, o endpoint também aceita o formato OpenAI em /v1.
+langchain-google-genai==4.3.2
+llama-index-llms-google-genai==0.9.6
+llama-index-embeddings-google-genai==0.5.1
+google-genai==2.17.0
+
+# ----------------------------------------------------- recuperação (item 4)
+# LlamaIndex é exigido para indexação. O SimpleVectorStore já vem no core;
+# se preferir FAISS ou Chroma, acrescente aqui — servidor separado é proibido.
+llama-index-core==0.14.23
+llama-index-retrievers-bm25==0.7.1
+#   faiss-cpu==1.13.0
+#   chromadb==1.4.1
+
+# -------------------------------------------------------- orquestração (item 4)
+# LangGraph é o padrão sugerido. LlamaIndex Workflows e smolagents também são
+# aceitos; `if/elif` puro, não.
+langgraph==1.2.10
+langchain-core==1.5.3
+
+# --------------------------------------------------------- leitura de anexos
+# O anexo pode ser foto de recibo: o Dockerfile já traz poppler e tesseract-por.
+pymupdf==1.28.2
+pytesseract==0.3.13
+pillow==12.3.0
+python-docx==1.2.0
+
+# ---------------------------------------------------------------------- MCP
+# 1.x, e não 2.0: a série 2.0 removeu o `mcp.server.fastmcp`, que é o que o
+# servidor em mcp/ usa. Esta versão serve às duas pontas — o servidor que você
+# sobe para testar e o cliente que você escreve.
+mcp==1.29.0

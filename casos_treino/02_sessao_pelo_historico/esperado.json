@@ -1,0 +1,37 @@
+{
+  "categoria_documento": "SESSAO_TERAPIA",
+  "decisao": "APROVADO_PARCIAL",
+  "valor_solicitado_brl": 320.0,
+  "valor_reembolso_brl": 111.27,
+  "regras_aplicadas": [
+    "ART-41",
+    "CIRC-02-2026",
+    "ART-73",
+    "ART-33",
+    "ART-43",
+    "ART-44",
+    "ART-45",
+    "ART-47",
+    "TUSS-50000462"
+  ],
+  "protocolo": null,
+  "pendencias": [],
+  "_titulo": "Psicoterapia — a sessão só existe no histórico, e o relatório chega depois",
+  "_dica": "Se você respondeu com base no que o beneficiário disse sobre o número de sessões, reveja: o recibo não traz esse campo e a Nota Técnica 02 diz onde buscá-lo. Se parou em PENDENTE_DOCUMENTO, o documento que faltava chegou num turno seguinte — o protocolo tinha de continuar aberto. Se o valor ficou acima do esperado, confira qual circular é a mais recente sobre o teto: a numeração não diz isso.",
+  "_data_da_conversa": "2026-05-20",
+  "_perguntas_abertas": [
+    {
+      "turno": 5,
+      "espera": "o relatório clínico é exigido a partir de certo ponto do acompanhamento e, sem ele, o pedido fica pendente — não negado — com o protocolo aberto esperando o documento"
+    },
+    {
+      "turno": 8,
+      "espera": "sim: existe um limite anual de reembolso por beneficiário, e o que já foi pago no ano reduz o saldo disponível, podendo limitar o valor desta sessão"
+    },
+    {
+      "turno": 9,
+      "espera": "perdido o prazo o direito decai e o pedido é indeferido sem exame do mérito; do indeferimento cabe pedido de reanálise, com prazo próprio, mas ele não reabre o prazo perdido"
+    }
+  ],
+  "_carteirinhas_de_terceiro": []
+}

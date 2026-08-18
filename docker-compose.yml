@@ -1,0 +1,29 @@
+# Sobe o servidor MCP e o seu agente, para você testar localmente.
+#
+# O avaliador NÃO usa este arquivo: ele constrói a sua imagem a partir do
+# Dockerfile da raiz e roda um `docker run` com o --env-file dele, apontando
+# para o MCP da banca — que é o mesmo servidor, com outro cadastro.
+services:
+  mcp:
+    # o servidor vem no pacote, em mcp/ — nada para baixar
+    build: ./mcp
+    ports:
+      - "9000:9000"
+    environment:
+      MCP_OPERADORA_TOKEN: treino
+      MCP_OPERADORA_DADOS: /dados
+    volumes:
+      # cada casos_treino/*/persona.json vira um beneficiário
+      - ./casos_treino:/dados:ro
+
+  agente:
+    build: .
+    depends_on:
+      - mcp
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
+    environment:
+      # dentro da rede do compose o MCP atende pelo nome do serviço
+      MCP_OPERADORA_URL: http://mcp:9000/mcp

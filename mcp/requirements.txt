@@ -1,0 +1,8 @@
+# O servidor MCP. Versões resolvidas e testadas — inclusive no build do Docker,
+# que é onde pin inventado aparece.
+#
+# `mcp` tem de ser 1.x: a série 2.0 removeu o `mcp.server.fastmcp`, que é o que
+# este servidor usa. A mesma versão serve ao cliente que você vai escrever.
+mcp==1.29.0
+starlette==1.6.0
+uvicorn==0.52.3
