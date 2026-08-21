@@ -356,7 +356,16 @@ NORMAS
 
 24. Quando houver conflito, resolva segundo a KB.
 
-25. Cite em regras_aplicadas os códigos efetivamente utilizados.
+25. Cite em regras_aplicadas os códigos efetivamente utilizados,
+    EXATAMENTE no formato abaixo — a comparação é literal, sem
+    tolerância a variação:
+
+    - Artigos: "ART-35" (não "Art. 35", não "artigo 35", não "Art.35")
+    - Circulares: "CIRC-02-2026" (número-hífen-ano, não "02/2026")
+    - Procedimentos: "TUSS-10101012" (prefixo TUSS-, hífen, 8 dígitos)
+    - Casos especiais: use exatamente "ANEXO-IV" ou "NT-02" quando aplicável
+
+    Um dispositivo citado fora desse formato conta como NÃO citado.
 
 ============================================================
 CÁLCULO
