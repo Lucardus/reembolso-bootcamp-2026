@@ -6,7 +6,7 @@
 services:
   mcp:
     # o servidor vem no pacote, em mcp/ — nada para baixar
-    build: ./mcp
+    build: ./mcp_client
     ports:
       - "9000:9000"
     environment:
@@ -15,6 +15,7 @@ services:
     volumes:
       # cada casos_treino/*/persona.json vira um beneficiário
       - ./casos_treino:/dados:ro
+      - ./storage:/srv/storage
 
   agente:
     build: .
@@ -27,3 +28,5 @@ services:
     environment:
       # dentro da rede do compose o MCP atende pelo nome do serviço
       MCP_OPERADORA_URL: http://mcp:9000/mcp
+    volumes:
+      - ./storage:/srv/storage

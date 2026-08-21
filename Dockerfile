@@ -14,9 +14,10 @@ COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
 # O índice entra pronto. Não construa índice no build nem no start.
-COPY storage/ ./storage/
+COPY ingest/ ./ingest/
 COPY kb/ ./kb/
 COPY app/ ./app/
+COPY storage/ ./storage/
 
 EXPOSE 8000
 CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]
