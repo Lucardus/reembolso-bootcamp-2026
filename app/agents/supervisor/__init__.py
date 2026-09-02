@@ -11,59 +11,29 @@ def rotear_proximo_no(state: AgentState) -> str:
     Decide qual agente deve processar o estado atual.
     """
 
-    # =========================================================
-    # 1. Ainda não temos carteirinha
-    # =========================================================
-    #
-    # A triagem deve responder ao beneficiário e encerrar
-    # este turno até que a carteirinha seja informada.
-    #
-
     if not state.get("carteirinha"):
-        return END
+        return END  
 
-    # =========================================================
-    # 2. Existe anexo novo ainda não processado
-    # =========================================================
-    #
-    # NÃO usamos mais:
-    #
-    #     not state.get("categoria_documento")
-    #
-    # porque a categoria pode pertencer a um documento anterior.
-    #
-    # Exemplo:
-    #
-    # Turno 5:
-    #     categoria_documento = "recibo"
-    #
-    # Turno 6:
-    #     chega relatório clínico
-    #
-    # O relatório precisa passar novamente pelo Documento.
-    #
+    # ag_triagem ja respondeu completamente este turno (ex.: recusa de
+    # dados de terceiro, confirmacao de carteirinha, resposta a pergunta
+    # especifica) - nao chame ag_normas, que sobrescreveria essa resposta
+    # certa com a decisao generica do caso (causa de ECO em turnos onde o
+    # assunto do turno nao e mais a decisao principal).
+    if state.get("_turno_finalizado"):
+        return END
 
     existe_anexo = (
         state.get("anexo_atual")
-        or state.get("anexo_salvo")
     )
 
     if existe_anexo and not state.get("anexo_processado", False):
         return "ag_documento"
-
-    # =========================================================
-    # 3. Caso pronto para análise normativa
-    # =========================================================
 
     return "ag_normas"
 
 
 def criar_grafo_agente():
     workflow = StateGraph(AgentState)
-
-    # =========================================================
-    # NÓS
-    # =========================================================
 
     workflow.add_node(
         "ag_triagem",
@@ -80,15 +50,7 @@ def criar_grafo_agente():
         ag_normas
     )
 
-    # =========================================================
-    # ENTRADA
-    # =========================================================
-
     workflow.set_entry_point("ag_triagem")
-
-    # =========================================================
-    # TRIAGEM → PRÓXIMO AGENTE
-    # =========================================================
 
     workflow.add_conditional_edges(
         "ag_triagem",
@@ -100,18 +62,10 @@ def criar_grafo_agente():
         },
     )
 
-    # =========================================================
-    # DOCUMENTO → NORMAS
-    # =========================================================
-
     workflow.add_edge(
         "ag_documento",
         "ag_normas"
     )
-
-    # =========================================================
-    # NORMAS → FIM DO TURNO
-    # =========================================================
 
     workflow.add_edge(
         "ag_normas",

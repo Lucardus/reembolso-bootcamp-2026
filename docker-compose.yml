@@ -15,7 +15,6 @@ services:
     volumes:
       # cada casos_treino/*/persona.json vira um beneficiário
       - ./casos_treino:/dados:ro
-      - ./storage:/srv/storage
 
   agente:
     build: .

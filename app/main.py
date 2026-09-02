@@ -64,16 +64,39 @@ def chat_endpoint(req: ChatRequest):
             "protocolo": None,
             "pendencias": [],
             "resposta_texto": "",
+            "_rejeitou_terceiro": False,
+            "_confirmado_carteirinha": False,
+            "_contador_respostas_apos_terceiro": 0,
+            "_contador_documentos_rejeitados": 0,
+            "_normas_respondeu_categoria": None,
+            "_contador_normas_respondeu": 0,
+            "anexo_processado": False,
+            "_caso_decidido": False,
+            "_relatorio_clinico_recebido": False,
+            "historico": [],
+            "valor_reembolsado_ano": None,
         }
 
     estado_atual = SESSÕES_EM_MEMORIA[session_id]
     estado_atual["anexo_atual"] = None
     estado_atual["mensagem_atual"] = req.mensagem or ""
+    # Limpa a resposta do turno anterior: se nenhum agente gerar uma nova,
+    # queremos DETECTAR isso (fallback diferente) em vez de devolver o texto
+    # do turno passado, o que o motor de avaliação zera como ECO.
+    estado_atual["resposta_texto"] = ""
+    # Reseta o sinal de "turno finalizado por ag_triagem": cada turno novo
+    # comeca sem essa marca; quem a redefine e ag_triagem, quando responde
+    # completamente sem precisar do ag_normas.
+    estado_atual["_turno_finalizado"] = False
 
     if req.anexo:
         anexo_dict = req.anexo.model_dump() if hasattr(req.anexo, "model_dump") else req.anexo.dict()
         estado_atual["anexo_atual"] = anexo_dict
         estado_atual["anexo_salvo"] = anexo_dict
+        # Anexo NOVO neste turno: reabre o pipeline de documento, mesmo que
+        # um anexo anterior já tivesse sido processado (ex.: 2º documento
+        # enviado depois do 1º ter sido rejeitado).
+        estado_atual["anexo_processado"] = False
 
     try:
         novo_estado = grafo_agente.invoke(estado_atual)

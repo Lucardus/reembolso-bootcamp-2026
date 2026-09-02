@@ -60,20 +60,12 @@ def consultar_beneficiario(carteirinha: str) -> Dict[str, Any]:
     if dados.get("erro"):
         return dados
 
-    sessoes_ano = 0
-    if "sessoes_terapia_ano" in dados:
-        sessoes_ano = dados.get("sessoes_terapia_ano", 0)
-    elif "sessoes_terapia" in dados and isinstance(dados["sessoes_terapia"], dict):
-        sessoes_ano = dados["sessoes_terapia"].get("ano_corrente", 0)
+    sessoes_ano = dados.get("sessoes_terapia_ano")
+    if sessoes_ano is None and isinstance(dados.get("sessoes_terapia"), dict):
+        sessoes_ano = dados["sessoes_terapia"].get("ano_corrente")
 
-    return {
-        "carteirinha": dados.get("carteirinha"),
-        "nome": dados.get("nome"),
-        "plano": dados.get("plano"),
-        "data_adesao": dados.get("data_adesao"),
-        "status": dados.get("status"),
-        "sessoes_terapia_ano": sessoes_ano,
-    }
+    dados["sessoes_terapia_ano"] = sessoes_ano if sessoes_ano is not None else 0
+    return dados  # preserva todos os campos originais, só normaliza o que já sabemos variar
 
 def consultar_historico(carteirinha: str) -> Dict[str, Any]:
     dados = chamar_mcp("consultar_historico", {"carteirinha": carteirinha})
@@ -83,3 +75,25 @@ def consultar_historico(carteirinha: str) -> Dict[str, Any]:
 
 def abrir_protocolo(carteirinha: str, payload: Dict[str, Any]) -> Dict[str, Any]:
     return chamar_mcp("abrir_protocolo", {"carteirinha": carteirinha, "payload": payload})
+
+def calcular_valor_reembolsado_ano(carteirinha: str, ano: int) -> float:
+    """Soma os valores já reembolsados no ano de referência, a partir do histórico do MCP."""
+    dados = consultar_historico(carteirinha)
+    if dados.get("erro"):
+        return 0.0
+
+    total = 0.0
+    for pedido in dados.get("pedidos", []):
+        # O servidor MCP (dados.py) devolve o campo "valor_reembolsado_brl"
+        # (com "ado"). Mantemos os outros nomes como fallback de robustez
+        # contra variação de esquema, na ordem certa de prioridade.
+        data_pedido = pedido.get("data_atendimento") or pedido.get("data") or ""
+        if data_pedido.startswith(str(ano)):
+            total += float(
+                pedido.get("valor_reembolsado_brl")
+                or pedido.get("valor_reembolso_brl")
+                or pedido.get("valor")
+                or 0
+            )
+
+    return total
